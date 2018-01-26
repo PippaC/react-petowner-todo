@@ -2,8 +2,42 @@
     "habit": [
         {
             "ID": "1",
-            "Name": "John Smith",
-            "Status": "Employed"
+            "Name": "Feed pet food",
+            "date_list": [
+              {"day": "Mon", "done": "no"},
+              {"day": "Tue", "done": "no"},
+              {"day": "Wed", "done": "no"},
+              {"day": "Thu", "done": "no"},
+              {"day": "Fri", "done": "no"},
+              {"day": "Sat", "done": "no"},
+              {"day": "Sun", "done": "no"}
+            ]
+        },
+        {
+            "ID": "2",
+            "Name": "Brush teeth",
+            "date_list": [
+              {"day": "Mon", "done": "no"},
+              {"day": "Tue", "done": "no"},
+              {"day": "Wed", "done": "no"},
+              {"day": "Thu", "done": "no"},
+              {"day": "Fri", "done": "no"},
+              {"day": "Sat", "done": "no"},
+              {"day": "Sun", "done": "no"}
+            ]
+        },
+        {
+            "ID": "3",
+            "Name": "Take a walk",
+            "date_list": [
+              {"day": "Mon", "done": "no"},
+              {"day": "Tue", "done": "no"},
+              {"day": "Wed", "done": "no"},
+              {"day": "Thu", "done": "no"},
+              {"day": "Fri", "done": "no"},
+              {"day": "Sat", "done": "no"},
+              {"day": "Sun", "done": "no"}
+            ]
         }
     ]
 }
