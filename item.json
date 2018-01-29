@@ -3,41 +3,17 @@
         {
             "ID": "1",
             "Name": "Feed pet food",
-            "date_list": [
-              {"day": "Mon", "done": "no"},
-              {"day": "Tue", "done": "no"},
-              {"day": "Wed", "done": "no"},
-              {"day": "Thu", "done": "no"},
-              {"day": "Fri", "done": "no"},
-              {"day": "Sat", "done": "no"},
-              {"day": "Sun", "done": "no"}
-            ]
+            "date_list": []
         },
         {
             "ID": "2",
             "Name": "Brush teeth",
-            "date_list": [
-              {"day": "Mon", "done": "no"},
-              {"day": "Tue", "done": "no"},
-              {"day": "Wed", "done": "no"},
-              {"day": "Thu", "done": "no"},
-              {"day": "Fri", "done": "no"},
-              {"day": "Sat", "done": "no"},
-              {"day": "Sun", "done": "no"}
-            ]
+            "date_list": []
         },
         {
             "ID": "3",
             "Name": "Take a walk",
-            "date_list": [
-              {"day": "Mon", "done": "no"},
-              {"day": "Tue", "done": "no"},
-              {"day": "Wed", "done": "no"},
-              {"day": "Thu", "done": "no"},
-              {"day": "Fri", "done": "no"},
-              {"day": "Sat", "done": "no"},
-              {"day": "Sun", "done": "no"}
-            ]
+            "date_list": []
         }
     ]
 }
