@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import {
   Table,
   TableBody,
@@ -9,23 +10,21 @@ import {
 } from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
 import Header from './Header';
+import { editHabit } from './actionCreator';
 import preload from '../item.json';
 
-export default class TableExampleControlled extends Component {
-  state = {
-    selected: [2],
-  };
+class TableExampleControlled extends Component {
 
   isSelected = (index) => {
     return this.state.selected.indexOf(index) !== -1;
   };
 
-  handleCellClick = (isInputChecked, test) => {
-    console.log(isInputChecked);
+  handleCellClick = (isInputChecked, habitId, date) => {
+    this.props.editHabitData({ habitId: habitId, date: date, isChecked: isInputChecked.target.checked });
   };
 
   render() {
-    const firstDate = getWeekDate();
+    const weekDates = getWeekDate();
     return (
       <div>
       <Header></Header>
@@ -36,22 +35,18 @@ export default class TableExampleControlled extends Component {
           enableSelectAll={false}>
           <TableRow>
             <TableHeaderColumn>Name</TableHeaderColumn>
-            <TableHeaderColumn key={firstDate}>SUN<br/>{firstDate}</TableHeaderColumn>
-            <TableHeaderColumn key={firstDate+1}>MON<br/>{firstDate+1}</TableHeaderColumn>
-            <TableHeaderColumn key={firstDate+2}>TUE<br/>{firstDate+2}</TableHeaderColumn>
-            <TableHeaderColumn key={firstDate+3}>WED<br/>{firstDate+3}</TableHeaderColumn>
-            <TableHeaderColumn key={firstDate+4}>THU<br/>{firstDate+4}</TableHeaderColumn>
-            <TableHeaderColumn key={firstDate+5}>FRI<br/>{firstDate+5}</TableHeaderColumn>
-            <TableHeaderColumn key={firstDate+6}>SAT<br/>{firstDate+6}</TableHeaderColumn>
+            {weekDates.map((item) => 
+              <TableHeaderColumn key={item.date}>{item.day}<br/>{item.date}</TableHeaderColumn>
+            )}
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false} >
-          {preload.habit.map(habit =>
-            <TableRow key={habit.ID} >
-              <TableRowColumn>{habit.Name}</TableRowColumn>
-                {Array.apply(null, Array(7)).map((i)=>
-                  <TableRowColumn key={i} >
-                    <Checkbox onClick={(isInputChecked)=>this.handleCellClick(isInputChecked, 'test123')}/>
+          {this.props.habits.map(habit => 
+            <TableRow key={habit.id} >
+              <TableRowColumn>{habit.text}</TableRowColumn>
+                {habit.date_list.map(DAY =>
+                  <TableRowColumn key={DAY.date}>
+                    <Checkbox checked={DAY.completed} onClick={(isInputChecked) => this.handleCellClick(isInputChecked, habit.id, DAY.date)}/>
                   </TableRowColumn>
                 )}
             </TableRow>
@@ -67,10 +62,43 @@ const getWeekDate = () => {
   const curr = new Date();
   const firstDate = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
   const week = Array.from({length: 6}, (e, i) => {
+    let day = '';
+    switch(i) {
+      case 0:
+        day = 'MON';
+        break;
+      case 1:
+        day = 'TUE';
+        break;
+      case 2:
+        day = 'WED';
+        break;
+      case 3:
+        day = 'THU';
+        break;
+      case 4:
+        day = 'FRI';
+        break;
+      case 5:
+        day = 'SAT';
+        break;
+    }
     let nextDate = new Date();
     nextDate.setDate(firstDate + (i + 1));
-    return nextDate.getDate();
+    return {'day': day, 'date': nextDate.getDate()};
   });
-  const lastDate = firstDate + 6; // last day is the first day + 6
-  return firstDate;
+  return [{'day': 'SUN', 'date': firstDate}].concat(week);
 };
+
+const mapStateToProps = (state, ownProps) => {
+  //const apiData = state.apiData[ownProps.show.imdbID] ? state.apiData[ownProps.show.imdbID] : {};
+  return state.addHabitT;
+};
+
+const mapDispatchToProps = (dispatch: Function, ownProps) => ({
+  editHabitData(task) {
+    dispatch(editHabit(task));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableExampleControlled);

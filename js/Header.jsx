@@ -21,7 +21,7 @@ class Header extends Component {
   render() {
     return (
       <AppBar
-        title={<span style={styles.title}>Daily Pet Owner Habit</span>}
+        title={<span style={styles.title}>Daily Habit</span>}
         iconElementRight={<IconButton onClick={this.props.addHabitData}><AddCircleOutline /></IconButton>}
       />
     );
