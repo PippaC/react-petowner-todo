@@ -19,8 +19,8 @@ class TableExampleControlled extends Component {
     return this.state.selected.indexOf(index) !== -1;
   };
 
-  handleCellClick = (isInputChecked, habitId, date) => {
-    this.props.editHabitData({ habitId: habitId, date: date, isChecked: isInputChecked.target.checked });
+  handleCellClick = (isInputChecked, habitId, dayIndex) => {
+    this.props.editHabitData({ habitId: habitId, dayIndex: dayIndex, isChecked: isInputChecked.target.checked });
   };
 
   render() {
@@ -44,9 +44,9 @@ class TableExampleControlled extends Component {
           {this.props.habits.map(habit => 
             <TableRow key={habit.id} >
               <TableRowColumn>{habit.text}</TableRowColumn>
-                {habit.date_list.map(DAY =>
+                {habit.date_list.map((DAY, index) =>
                   <TableRowColumn key={DAY.date}>
-                    <Checkbox checked={DAY.completed} onClick={(isInputChecked) => this.handleCellClick(isInputChecked, habit.id, DAY.date)}/>
+                    <Checkbox checked={DAY.completed} onClick={(isInputChecked) => this.handleCellClick(isInputChecked, habit.id, index)}/>
                   </TableRowColumn>
                 )}
             </TableRow>
@@ -91,7 +91,6 @@ const getWeekDate = () => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  //const apiData = state.apiData[ownProps.show.imdbID] ? state.apiData[ownProps.show.imdbID] : {};
   return state.addHabitT;
 };
 

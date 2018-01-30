@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import update from 'immutability-helper';
 import { ADD_HABIT, EDIT_HABIT } from './actions';
 
 const getWeekList = () => {
@@ -52,28 +53,9 @@ const initialState = { 'habits': [
 ]};
 
 const addHabitT = (state = initialState, action) => {
-  //if (action.type == ADD_HABIT)
-    //return Object.assign({}, state, { habit: action.payload });
   switch (action.type) {
     case EDIT_HABIT:
-      /*state.habits.map(todo => {
-        if(todo.id === action.payload.habitId)
-          todo.date_list.map(item => {
-              if(item.date === action.payload.date)
-                return Object.assign({}, item, { completed: action.payload.isChecked });
-              else return item;
-          });
-        else return todo;
-      });
-      console.log(state);*/
- return [
-   ...state.habits,
-   {
-     id: 999,
-     //completed: false,
-     text: 'babel-plugin-transform-decorators-legacy'
-   }
- ];
+      return update(state, {habits: {[action.payload.habitId]: {date_list: {[action.payload.dayIndex]: {completed: {$set: action.payload.isChecked}}}}}});      
     default:
       return state;
   }
