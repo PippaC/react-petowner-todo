@@ -26,33 +26,33 @@ class TableExampleControlled extends Component {
   render() {
     const weekDates = getWeekDate();
     return (
-      <div>
-      <Header></Header>
-      <Table>
-        <TableHeader
-          displaySelectAll={false}
-          adjustForCheckbox={false}
-          enableSelectAll={false}>
-          <TableRow>
-            <TableHeaderColumn>Name</TableHeaderColumn>
-            {weekDates.map((item) => 
-              <TableHeaderColumn key={item.date}>{item.day}<br/>{item.date}</TableHeaderColumn>
-            )}
-          </TableRow>
-        </TableHeader>
-        <TableBody displayRowCheckbox={false} >
-          {this.props.habits.map(habit => 
-            <TableRow key={habit.id} >
-              <TableRowColumn>{habit.text}</TableRowColumn>
-                {habit.date_list.map((DAY, index) =>
-                  <TableRowColumn key={DAY.date}>
-                    <Checkbox checked={DAY.completed} onClick={(isInputChecked) => this.handleCellClick(isInputChecked, habit.id, index)}/>
-                  </TableRowColumn>
-                )}
+      <div className="daily">
+        <Header></Header>
+        <Table>
+          <TableHeader
+            displaySelectAll={false}
+            adjustForCheckbox={false}
+            enableSelectAll={false}>
+            <TableRow>
+              <TableHeaderColumn style={{width: '30%'}}>Name</TableHeaderColumn>
+              {weekDates.map((item) => 
+                <TableHeaderColumn key={item.date}>{item.day}<br/>{item.date}</TableHeaderColumn>
+              )}
             </TableRow>
-          )}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false} >
+            {this.props.habits.map(habit => 
+              <TableRow key={habit.id} >
+                <TableRowColumn style={{width: '30%'}}>{habit.text}</TableRowColumn>
+                  {habit.date_list.map((DAY, index) =>
+                    <TableRowColumn key={DAY.date}>
+                      <Checkbox checked={DAY.completed} onClick={(isInputChecked) => this.handleCellClick(isInputChecked, habit.id, index)}/>
+                    </TableRowColumn>
+                  )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </div>
     );
   }
