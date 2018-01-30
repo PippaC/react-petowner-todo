@@ -4,6 +4,8 @@ import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
+import {SelectField, MenuItem} from 'material-ui';
+
 import AddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
 import { addHabit } from './actionCreator';
 
@@ -22,10 +24,15 @@ class Header extends Component {
 
   state = {
     open: false,
+    value: 1
   };
+
   handleOpen = () => {
     this.setState({open: true});
   };
+
+  handleChange = (event, index, value) => this.setState({value});
+
   render() {
     return (
       <div>
@@ -40,7 +47,18 @@ class Header extends Component {
           modal={false}
           open={this.state.open}
        >
-          <TextField hintText="Habit Name" />
+          <TextField hintText="Habit Name" fullWidth={true}/>
+          <SelectField
+            floatingLabelText="Frequency"
+            value={this.state.value}
+            onChange={this.handleChange}
+            fullWidth={true}
+          >          
+          <MenuItem value={1} primaryText="Everyday" />
+          <MenuItem value={2} primaryText="Every Monday, Wednesday, Friday" />
+          <MenuItem value={3} primaryText="Weekdays" />
+          <MenuItem value={4} primaryText="Weekends" />
+        </SelectField>
        </Dialog>
        </div>
     );
