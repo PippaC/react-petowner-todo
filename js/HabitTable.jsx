@@ -10,7 +10,7 @@ import {
 } from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
 import Header from './Header';
-import { editHabit } from './actionCreator';
+import { addHabit, editHabit } from './actionCreator';
 import preload from '../item.json';
 
 class TableExampleControlled extends Component {
@@ -23,11 +23,17 @@ class TableExampleControlled extends Component {
     this.props.editHabitData({ habitId: habitId, dayIndex: dayIndex, isChecked: isInputChecked.target.checked });
   };
 
+  handleSubmit = (data) => {
+    // Do something with the form values
+    console.log(data);
+    this.props.addHabitData({ habitName: data.habitName, freq: data.freq });
+  }
+
   render() {
     const weekDates = getWeekDate();
     return (
       <div className="daily">
-        <Header></Header>
+        <Header onSubmit={this.handleSubmit}></Header>
         <Table>
           <TableHeader
             displaySelectAll={false}
@@ -97,6 +103,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch: Function, ownProps) => ({
   editHabitData(task) {
     dispatch(editHabit(task));
+  },
+  addHabitData(task) {
+    dispatch(addHabit(task));
   }
 });
 
