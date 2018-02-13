@@ -74,7 +74,7 @@ $size: 1em;
     display: block;
     font-size: $font-size;
     left: $font-size-redo / 10;
-    line-height: $font-size-redo * @include 65;
+    line-height: $font-size-redo * 65;
     position: absolute;
     right: $font-size-redo / 10;
     text-align: center;
@@ -82,7 +82,7 @@ $size: 1em;
 
     .smaller {
       color: #bdc3c7;
-      font-size: @include 45em;
+      font-size: 45em;
       padding-bottom: 20px;
       vertical-align: super;
     }
@@ -160,24 +160,25 @@ $size: 1em;
   }
 }
 
-// --
-@mixin draw-progress($progress, $color) when ($progress <= 50){
-  .pie {
-    .right-side {
-      display: none;
+@mixin draw-progress($progress, $color) {
+  @if($progress <= 50){
+    .pie {
+      .right-side {
+        display: none;
+      }
+    }
+  }
+  @else if($progress > 50){
+    .pie {
+      clip: rect(auto, auto, auto, auto);
+      .right-side {
+        transform: rotate(180deg);
+      }
     }
   }
 }
 
-@mixin draw-progress($progress, $color) when ($progress > 50){
-  .pie {
-    clip: rect(auto, auto, auto, auto);
 
-    .right-side {
-      transform: rotate(180deg);
-    }
-  }
-}
 
 @mixin draw-progress($progress, $color){
   .pie {
@@ -187,22 +188,23 @@ $size: 1em;
 
     .left-side {
       $rotate: $progress * 3.6;
-      transform: rotate(~'${rotate}deg');
+      transform: rotate('${rotate}deg');
     }
   }
 }
 
-@mixin draw-progress--solid($progress, $color, $bg) when ($progress <= 50){
-  &:before {
-    background: $bg;
-    transform: rotate((100 - (50 - $progress)) / 100 * 360deg * -1);
+@mixin draw-progress--solid($progress, $color, $bg){
+  @if ($progress <= 50){
+    &:before {
+      background: $bg;
+      transform: rotate((100 - (50 - $progress)) / 100 * 360deg * -1);
+    }
   }
-}
-
-@mixin draw-progress--solid($progress, $color, $bg) when ($progress > 50){
-  &:before {
-    background: $color;
-    transform: rotate((100 - $progress) / 100 * 360deg);
+  @else if($progress > 50){
+    &:before {
+      background: $color;
+      transform: rotate((100 - $progress) / 100 * 360deg);
+    }
   }
 }
 
